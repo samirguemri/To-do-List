@@ -1,3 +1,63 @@
 <template>
-    
+    <lightning-card title="To Do List">
+        <lightning-button-icon
+            icon-name="utility:sync"
+            alternative-text="Sync"
+            title="Sync"
+            variant="brand"
+            slot="actions"
+            onclick={onClickSyncButton}
+        ><label>Sync</label></lightning-button-icon>
+        <div>
+            <lightning-layout>
+                <lightning-layout-item size="12" padding="around-small">
+                    <ul class="slds-has-dividers_around-space">
+                        <template for:each={tasks} for:item="taskItem">
+                            <li class="slds-item" key={taskItem.id}>
+                                <lightning-layout
+                                    vertical-align="center"
+                                    horizontal-align="spread"
+                                >
+                                    <lightning-layout-item flexibility="auto, grow" padding="horizontal-small">
+                                        {taskItem.task}
+                                    </lightning-layout-item>
+                                    <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
+                                        <lightning-button-icon
+                                            icon-name="utility:delete"
+                                            alternative-text="Delete"
+                                            title="Delete"
+                                            variant="brand"
+                                            class="slds-theme_error"
+                                            onclick={onClickDeleteTaskButton}
+                                        ></lightning-button-icon>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                            </li>
+                        </template>
+                    </ul>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <p slot="footer">
+            <lightning-layout horizontal-align="center" pull-to-boundary="small">
+                <lightning-layout-item flexibility="grow" padding="horizontal-small">
+                    <lightning-input
+                        type="text"
+                        label="New Task"
+                        variant="label-hidden"
+                        placeholder="Enter new Task"
+                    ></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
+                    <lightning-button
+                        variant="brand"
+                        class="my-brand"
+                        label="Add"
+                        title="Adding new Task"
+                        onclick={onClickAddButton}
+                    ></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </p>
+    </lightning-card>
 </template>
