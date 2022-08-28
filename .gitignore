@@ -1,15 +1,13 @@
-# This file is used for Git repositories to specify intentionally untracked files that Git should ignore. 
+# This file is used for Git repositories to specify intentionally untracked files that Git should ignore.
 # If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
 # For useful gitignore templates see: https://github.com/github/gitignore
 
-# Salesforce cache
-.sf/
+# Salesforce dev
 .sfdx/
 .localdevserver/
-deploy-options.json
 
 # LWC VSCode autocomplete
-**/lwc/jsconfig.json
+jsconfig.json
 
 # LWC Jest coverage reports
 coverage/
@@ -36,5 +34,6 @@ ehthumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
 
-# Local environment variables
-.env
+# VS Code project settings
+.vscode/*
+!.vscode/extensions.json
