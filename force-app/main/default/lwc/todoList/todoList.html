@@ -28,7 +28,8 @@
                                             title="Delete"
                                             variant="brand"
                                             class="slds-theme_error"
-                                            onclick={onClickDeleteTaskButton}
+                                            name={taskItem.id}
+                                            onclick={deleteTaskFromList}
                                         ></lightning-button-icon>
                                     </lightning-layout-item>
                                 </lightning-layout>
@@ -47,7 +48,7 @@
                         variant="label-hidden"
                         placeholder="Enter new Task"
                         value={newTask}
-                        onchange={onChangeAddNewTaskInput}
+                        onchange={updateNewTask}
                     ></lightning-input>
                 </lightning-layout-item>
                 <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
@@ -56,7 +57,7 @@
                         class="my-brand"
                         label="Add"
                         title="Adding new Task"
-                        onclick={onClickAddNewTaskButton}
+                        onclick={addNewTasktoList}
                     ></lightning-button>
                 </lightning-layout-item>
             </lightning-layout>

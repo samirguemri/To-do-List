@@ -8,15 +8,20 @@ export default class TodoList extends LightningElement {
     @track
     tasks = [];
 
-    onChangeAddNewTaskInput(event) {
+    updateNewTask(event) {
         this.newTask = event.target.value;
     }
 
-    onClickAddNewTaskButton(event) {
+    addNewTasktoList(event) {
         this.tasks.unshift({
             id: ++this.lastId,
             task: this.newTask
         });
         this.newTask = '';
+    }
+
+    deleteTaskFromList(event) {
+        const idToDelete = event.target.name;
+        this.tasks = this.tasks.filter(value => value.id !== idToDelete);
     }
 }
