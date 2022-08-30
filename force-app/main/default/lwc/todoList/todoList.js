@@ -1,9 +1,22 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 export default class TodoList extends LightningElement {
 
-    tasks = [
-        {id: '1', task: 'Task 1'},
-        {id: '2', task: 'Task 2'}
-    ];
+    lastId = 0;
+    newTask;
+
+    @track
+    tasks = [];
+
+    onChangeAddNewTaskInput(event) {
+        this.newTask = event.target.value;
+    }
+
+    onClickAddNewTaskButton(event) {
+        this.tasks.unshift({
+            id: ++this.lastId,
+            task: this.newTask
+        });
+        this.newTask = '';
+    }
 }
