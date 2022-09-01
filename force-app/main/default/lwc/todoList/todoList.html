@@ -12,28 +12,30 @@
             <lightning-layout>
                 <lightning-layout-item size="12" padding="around-small">
                     <ul class="slds-has-dividers_around-space">
-                        <template for:each={tasks} for:item="taskItem">
-                            <li class="slds-item" key={taskItem.id}>
-                                <lightning-layout
-                                    vertical-align="center"
-                                    horizontal-align="spread"
-                                >
-                                    <lightning-layout-item flexibility="auto, grow" padding="horizontal-small">
-                                        {taskItem.task}
-                                    </lightning-layout-item>
-                                    <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
-                                        <lightning-button-icon
-                                            icon-name="utility:delete"
-                                            alternative-text="Delete"
-                                            title="Delete"
-                                            variant="brand"
-                                            class="slds-theme_error"
-                                            name={taskItem.id}
-                                            onclick={deleteTaskFromList}
-                                        ></lightning-button-icon>
-                                    </lightning-layout-item>
-                                </lightning-layout>
-                            </li>
+                        <template if:true={tasks}>
+                            <template for:each={tasks} for:item="taskItem">
+                                <li class="slds-item" key={taskItem.Id}>
+                                    <lightning-layout
+                                        vertical-align="center"
+                                        horizontal-align="spread"
+                                    >
+                                        <lightning-layout-item flexibility="auto, grow" padding="horizontal-small">
+                                            {taskItem.Subject}
+                                        </lightning-layout-item>
+                                        <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
+                                            <lightning-button-icon
+                                                icon-name="utility:delete"
+                                                alternative-text="Delete"
+                                                title="Delete"
+                                                variant="brand"
+                                                class="slds-theme_error"
+                                                name={taskItem.Id}
+                                                onclick={deleteTaskFromList}
+                                            ></lightning-button-icon>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </li>
+                            </template>
                         </template>
                     </ul>
                 </lightning-layout-item>

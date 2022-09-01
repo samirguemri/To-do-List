@@ -1,7 +1,10 @@
 {
-  "orgName": "samir company",
+  "orgName": "Scratch Org",
   "edition": "Developer",
-  "features": ["EnableSetPasswordInApi"],
+  "description": "This org is created for scratch org",
+  "hasSampleData": true,
+  "features": [],
+  "language": "en_US",
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
