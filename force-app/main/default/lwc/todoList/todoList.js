@@ -1,7 +1,9 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 
-import fetshTasks from '@salesforce/apex/TodoListController.getTasks';
+import getTasks from '@salesforce/apex/TodoListController.getTasks';
+import insertTask from '@salesforce/apex/TodoListController.insertTask';
+import deleteTask from '@salesforce/apex/TodoListController.deleteTask';
 
 export default class TodoList extends LightningElement {
 
@@ -10,7 +12,7 @@ export default class TodoList extends LightningElement {
     error;
     tasksResponse;
 
-    @wire(fetshTasks)
+    @wire(getTasks)
     wiredTasks(response) {
         this.tasksResponse = response;
         let data = response.data;
@@ -36,16 +38,30 @@ export default class TodoList extends LightningElement {
     }
 
     addNewTasktoList() {
-        this.tasks.push({
-            Id: 11111,
-            Subject: this.newTask
+        insertTask({taskToInsert: this.newTask})
+        .then(result => {
+            console.log(result);
+            this.tasks.push({
+                Id: result.Id,
+                Subject: this.newTask
+            });
+            this.newTask = '';
+        })
+        .catch(error => {
+            console.log('error => ' + error);
         });
-        this.newTask = '';
     }
 
     deleteTaskFromList(event) {
         const idToDelete = event.target.name;
-        this.tasks = this.tasks.filter(task => task .Id !== idToDelete);
+        deleteTask({taskId: idToDelete})
+        .then(result => {
+            console.log('delete => ' + result);
+            this.tasks = this.tasks.filter(task => task.Id !== idToDelete);
+        })
+        .catch(error => {
+            console.log('error => ' + error);
+        });
     }
 
     refreshList() {
