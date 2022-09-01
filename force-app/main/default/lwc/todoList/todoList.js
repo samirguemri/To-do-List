@@ -11,12 +11,17 @@ export default class TodoList extends LightningElement {
     @track tasks = [];
     error;
     tasksResponse;
+    processing = true;
 
     @wire(getTasks)
     wiredTasks(response) {
         this.tasksResponse = response;
         let data = response.data;
         let error = response.error;
+
+        if (data || error) {
+            this.processing = false;
+        }
 
         if (data) {
             this.error = undefined;
@@ -38,6 +43,10 @@ export default class TodoList extends LightningElement {
     }
 
     addNewTasktoList() {
+        if (this.newTask === '') {
+            return;
+        }
+        this.processing = true;
         insertTask({taskToInsert: this.newTask})
         .then(result => {
             console.log(result);
@@ -49,23 +58,32 @@ export default class TodoList extends LightningElement {
         })
         .catch(error => {
             console.log('error => ' + error);
-        });
+        })
+        .finally( () => {this.processing = false;});
     }
 
     deleteTaskFromList(event) {
+        this.processing = true;
         const idToDelete = event.target.name;
         deleteTask({taskId: idToDelete})
         .then(result => {
-            console.log('delete => ' + result);
-            this.tasks = this.tasks.filter(task => task.Id !== idToDelete);
+            if(result) {
+                console.log('delete => ' + result);
+                this.tasks = this.tasks.filter(task => task.Id !== idToDelete);
+            } else {
+                console.log('Unable to delete this task');
+            }
         })
         .catch(error => {
             console.log('error => ' + error);
-        });
+        })
+        .finally( () => {this.processing = false;});
     }
 
     refreshList() {
-        refreshApex(this.tasksResponse);
+        this.processing = true;
+        refreshApex(this.tasksResponse)
+        .finally( () => {this.processing = false;});
     }
 
 }

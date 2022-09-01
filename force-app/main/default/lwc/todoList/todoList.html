@@ -9,6 +9,10 @@
             onclick={refreshList}
         ><label>Sync</label></lightning-button-icon>
         <div>
+            <template if:true={processing}>
+                <lightning-spinner variant="brand" size="small" alternative-text="Loading...">
+                </lightning-spinner>
+            </template>
             <lightning-layout>
                 <lightning-layout-item size="12" padding="around-small">
                     <ul class="slds-has-dividers_around-space">
